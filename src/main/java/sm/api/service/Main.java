@@ -54,7 +54,7 @@ public class Main {
                                 .readerClass(OpenApiReader.class.getName())
                                 .cacheTTL(0L)
                                 .prettyPrint(true))
-                        .ctxId(OpenApiContext.OPENAPI_CONTEXT_ID_PREFIX + "servlet." + restEasyServletInfo.getName()) // "openapi.context.id.servlet.HttpServletDispatcher", //OpenApiContext.OPENAPI_CONTEXT_ID_DEFAULT
+                        .ctxId(OpenApiContext.OPENAPI_CONTEXT_ID_PREFIX + "servlet." + restEasyServletInfo.getName())
                         .buildContext(true);
 
 
