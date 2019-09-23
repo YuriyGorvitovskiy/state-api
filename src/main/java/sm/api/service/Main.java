@@ -29,15 +29,6 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        // Swagger Configuration
-        OpenApiContextLocator.getInstance().putOpenApiContext("openapi.context.id.servlet.HttpServletDispatcher", //OpenApiContext.OPENAPI_CONTEXT_ID_DEFAULT
-                new JaxrsOpenApiContextBuilder()
-                        .openApiConfiguration(new SwaggerConfiguration()
-                                .resourcePackages(new HashSet<>(Arrays.asList("sm.api")))
-                                .readerClass(OpenApiReader.class.getName())
-                                .cacheTTL(0L)
-                                .prettyPrint(true))
-                        .buildContext(true));
 
         // RESTeasy servlet setup
         final Class<? extends Application> appClass = RESTApplication.class;
@@ -53,9 +44,19 @@ public class Main {
                 .setDeploymentName("REST API")
                 .addServlets(restEasyServletInfo);
 
-
         DeploymentManager manager = Servlets.defaultContainer().addDeployment(servletBuilder);
         manager.deploy();
+
+        // Swagger Configuration
+        new JaxrsOpenApiContextBuilder()
+                        .openApiConfiguration(new SwaggerConfiguration()
+                                .resourcePackages(new HashSet<>(Arrays.asList("sm.api")))
+                                .readerClass(OpenApiReader.class.getName())
+                                .cacheTTL(0L)
+                                .prettyPrint(true))
+                        .ctxId(OpenApiContext.OPENAPI_CONTEXT_ID_PREFIX + "servlet." + restEasyServletInfo.getName()) // "openapi.context.id.servlet.HttpServletDispatcher", //OpenApiContext.OPENAPI_CONTEXT_ID_DEFAULT
+                        .buildContext(true);
+
 
         // Serve swagger UI from WebJar
         ResourceHandler resourceHandler = new ResourceHandler(
