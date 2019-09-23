@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group 'yg.service'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'javax', name: 'javaee-api', version: '8.0.1'
+
+    implementation group: 'io.undertow', name: 'undertow-core', version: '2.0.26.Final'
+    implementation group: 'io.undertow', name: 'undertow-servlet', version: '2.0.26.Final'
+
+    implementation group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.9.0.Final'
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.9'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.9'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.9'
+    implementation group: 'com.fasterxml.jackson.module', name: 'jackson-modules-java8', version: '2.9.9'
+    implementation group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.9.9'
+
+    implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.0.9'
+    implementation group: 'io.swagger.core.v3', name: 'swagger-jaxrs2', version: '2.0.9'
+    implementation group: 'io.swagger.core.v3', name: 'swagger-jaxrs2-servlet-initializer', version: '2.0.9'
+
+    implementation group: 'org.webjars', name: 'swagger-ui', version: '3.23.8'
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
+}
