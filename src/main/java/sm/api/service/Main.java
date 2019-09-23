@@ -1,7 +1,9 @@
 package sm.api.service;
 
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
+import io.swagger.v3.oas.integration.OpenApiContextLocator;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
+import io.swagger.v3.oas.integration.api.OpenApiContext;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.handlers.PathHandler;
@@ -28,13 +30,14 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         // Swagger Configuration
-        new JaxrsOpenApiContextBuilder()
-                .openApiConfiguration(new SwaggerConfiguration()
-                        .resourcePackages(new HashSet<>(Arrays.asList("sm.api")))
-                        .readerClass(OpenApiReader.class.getName())
-                        .cacheTTL(0L)
-                        .prettyPrint(true))
-                .buildContext(true);
+        OpenApiContextLocator.getInstance().putOpenApiContext("openapi.context.id.servlet.HttpServletDispatcher", //OpenApiContext.OPENAPI_CONTEXT_ID_DEFAULT
+                new JaxrsOpenApiContextBuilder()
+                        .openApiConfiguration(new SwaggerConfiguration()
+                                .resourcePackages(new HashSet<>(Arrays.asList("sm.api")))
+                                .readerClass(OpenApiReader.class.getName())
+                                .cacheTTL(0L)
+                                .prettyPrint(true))
+                        .buildContext(true));
 
         // RESTeasy servlet setup
         final Class<? extends Application> appClass = RESTApplication.class;
